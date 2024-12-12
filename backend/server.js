@@ -1,6 +1,7 @@
 const express = require('express');
-const mongoose = require('mongoose');
+
 const dotenv = require('dotenv');
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const superAdminRoute = require('./routes/superAdminRoute') // Import your routes
@@ -18,9 +19,8 @@ app.use(bodyParser.json()); // Parse incoming requests with JSON payloads
 
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('Error connecting to MongoDB:', err));
+const connectDB = require('./config/db');
+connectDB();
 
 // Use the superadminRouter for routes related to templates
 app.use('/api/superadmin', superAdminRoute);
